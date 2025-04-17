@@ -43,8 +43,8 @@ The backend is designed using clean code principles, modular architecture, and e
 
 ```bash
 # 1. Clone the Repository
-git clone https://github.com/your-repository-url.git
-cd grocery-ordering-system
+git clone https://github.com/AMANKUMAR22MCA/GroceryOrderAPI.git
+cd projectname
 
 # 2. Create a Virtual Environment
 python -m venv venv
