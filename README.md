@@ -61,7 +61,8 @@ pip install -r requirements.txt
 # Create a .env file in the root directory with the following content:
 
 DATABASE_URL="mysql+pymysql://username:password@localhost:3306/grocery_db"
-Note : I am using mysql db change localhost and other details according to your db.
+Note : I am using mysql db change localhost and other details according to your db and keep your
+database open in my case i will open the my sql workbench .
 
 # 6. Run the Application
 uvicorn main:app --reload
