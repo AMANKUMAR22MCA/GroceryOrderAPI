@@ -94,6 +94,8 @@ Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
   "unit": "kg"
 }
 ```
+![image](https://github.com/user-attachments/assets/ca3d97b3-d1ba-47e3-b292-76fb1620b2bd)
+
 
 ### 🧾 Order Endpoints
 
