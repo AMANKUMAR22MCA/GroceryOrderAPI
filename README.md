@@ -14,7 +14,6 @@ The backend is designed using clean code principles, modular architecture, and e
 | Backend Framework  | FastAPI                |
 | Database           | MySQL                  |
 | ORM                | SQLAlchemy             |
-| Authentication     | JWT (JSON Web Tokens)  |
 | Env Configuration  | Pydantic Settings      |
 | API Documentation  | Swagger UI (via FastAPI) |
 | Code Style         | Modular & Scalable     |
@@ -60,9 +59,106 @@ pip install -r requirements.txt
 
 # 5. Configure Environment Variables
 # Create a .env file in the root directory with the following content:
-# (replace with your actual DB credentials)
-DATABASE_URL="mysql+pymysql://username:password@localhost:3306/grocery_db"
+
 
 # 6. Run the Application
 uvicorn main:app --reload
+
+---
+
+Now visit the app at: [http://127.0.0.1:8000](http://127.0.0.1:8000)  
+Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+
+
+
+## 📡 API Endpoints
+
+### 🧺 Product Endpoints
+
+| Method | Endpoint         | Description         |
+|--------|------------------|---------------------|
+| GET    | `/products`      | Get all products    |
+| GET    | `/products/{id}` | Get a product by ID |
+| POST   | `/products`      | Create a new product|
+| PUT    | `/products/{id}` | Update product by ID|
+| DELETE | `/products/{id}` | Delete product by ID|
+
+#### 📥 Sample Request Body for `POST /products`:
+```json
+{
+  "name": "Bread",
+  "price_per_unit": 45,
+  "unit": "kg"
+}
+
+# (replace with your actual DB credentials)
+DATABASE_URL="mysql+pymysql://username:password@localhost:3306/grocery_db"
+
+
+### 🧾 Order Endpoints
+
+| Method | Endpoint       | Description        |
+|--------|----------------|--------------------|
+| GET    | `/orders`      | Get all orders     |
+| GET    | `/orders/{id}` | Get an order by ID |
+| POST   | `/orders`      | Create a new order |
+| PUT    | `/orders/{id}` | Update order by ID |
+| DELETE | `/orders/{id}` | Delete order by ID |
+
+#### 📥 Sample Request Body for `POST /orders`:
+```json
+{
+  "customer_name": "John Doe",
+  "items": [
+    {
+      "product_id": 1,
+      "quantity": 2
+    },
+    {
+      "product_id": 5,
+      "quantity": 1
+    }
+  ]
+}
+
+## 🔧 Services
+
+| File                             | Description                                              |
+|----------------------------------|----------------------------------------------------------|
+| `services/product_service.py`    | 📦 Handles all product operations: create, read, update, delete. |
+| `services/order_service.py`      | 🧾 Processes order creation, total calculation, and order updates. |
+
+---
+
+## 🛠️ Utilities
+
+| File                           | Description                                                                            |
+|--------------------------------|----------------------------------------------------------------------------------------|
+| `utils/exceptions.py`         | ❗ Used for raising structured HTTP errors like 404 (Not Found), 400 (Bad Request), etc.|
+
+### 🔍 Example:
+```python
+def raise_not_found(message):
+    raise HTTPException(status_code=404, detail=message)
+## 🗃️ Models
+
+| Model       | Description                                                |
+|-------------|------------------------------------------------------------|
+| 🛒 `Product`     | Represents a grocery product with attributes like `name`, `price_per_unit`, and `unit`. |
+| 📦 `Order`       | Represents a customer order, including the customer's name. |
+| 📄 `OrderItem`   | Represents an item in an order, linking a product with a `quantity`. |
+
+---
+
+## 🗄️ Database
+
+All database configuration and session management are handled in the `database.py` file.
+
+This includes setting up the connection engine and creating tables using SQLAlchemy’s `Base.metadata`.
+
+### 🔧 Table Creation Example
+
+```python
+Base.metadata.create_all(bind=engine)
+
 
