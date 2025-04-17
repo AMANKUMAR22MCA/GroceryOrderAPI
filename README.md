@@ -1,7 +1,7 @@
 # 🛒 Grocery Ordering System API
 
 ## 🚀 Project Overview
-This project is a **Grocery Ordering System** built with **FastAPI** and **SQLAlchemy**. It allows customers to browse and place grocery orders with full CRUD support for products, orders, and order items.
+This project is a **Grocery Ordering System** built with **FastAPI** and **SQLAlchemy**. It allows customers to browse and place grocery orders with full support for products, orders, and order items.
 
 The backend is designed using clean code principles, modular architecture, and efficient MySQL database handling.
 
@@ -9,32 +9,32 @@ The backend is designed using clean code principles, modular architecture, and e
 
 ## 🧰 Tech Stack
 
-| Component           | Technology            |
-|--------------------|------------------------|
-| Backend Framework  | FastAPI                |
-| Database           | MySQL                  |
-| ORM                | SQLAlchemy             |
-| Env Configuration  | Pydantic Settings      |
+| Component           | Technology              |
+|--------------------|--------------------------|
+| Backend Framework  | FastAPI                  |
+| Database           | MySQL                    |
+| ORM                | SQLAlchemy               |
+| Env Configuration  | Pydantic Settings        |
 | API Documentation  | Swagger UI (via FastAPI) |
-| Code Style         | Modular & Scalable     |
+| Code Style         | Modular & Scalable       |
 
 ---
 
 ## 📁 Project Structure
 
-| Folder/File         | Description |
-|---------------------|-------------|
-| `db/`               | Handles database connection and session management. |
-| `.gitignore`        | Files and directories to be excluded from version control. |
-| `models/`           | SQLAlchemy models for Product, Order, and OrderItem tables. |
-| `routes/`           | FastAPI route handlers for various endpoints. |
-| `schemas/`          | Pydantic models for validation and serialization. |
-| `services/`         | Business logic for product and order handling. |
-| `utils/`            | Utility functions and custom exception handlers. |
-| `config.py`         | App configuration (e.g., database URL, env vars). |
-| `database.py`       | Sets up the DB engine and creates tables. |
-| `main.py`           | App entry point; registers routes and initializes DB. |
-| `requirements.txt`  | Python dependencies for the project. |
+| Folder/File         | Description                                                  |
+|---------------------|--------------------------------------------------------------|
+| `db/`               | Handles database connection and session management.          |
+| `.gitignore`        | Files and directories to be excluded from version control.   |
+| `models/`           | SQLAlchemy models for Product, Order, and OrderItem tables.  |
+| `routes/`           | FastAPI route handlers for various endpoints.                |
+| `schemas/`          | Pydantic models for validation and serialization.            |
+| `services/`         | Business logic for product and order handling.               |
+| `utils/`            | Utility functions and custom exception handlers.             |
+| `config.py`         | App configuration (e.g., database URL, env vars).            |
+| `database.py`       | Sets up the DB engine and creates tables.                    |
+| `main.py`           | App entry point; registers routes and initializes DB.         |
+| `requirements.txt`  | Python dependencies for the project.                         |
 
 ---
 
@@ -60,52 +60,53 @@ pip install -r requirements.txt
 # 5. Configure Environment Variables
 # Create a .env file in the root directory with the following content:
 
+DATABASE_URL="mysql+pymysql://username:password@localhost:3306/grocery_db"
 
 # 6. Run the Application
 uvicorn main:app --reload
+```
 
 ---
 
 Now visit the app at: [http://127.0.0.1:8000](http://127.0.0.1:8000)  
 Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
-
+---
 
 ## 📡 API Endpoints
 
 ### 🧺 Product Endpoints
 
-| Method | Endpoint         | Description         |
-|--------|------------------|---------------------|
-| GET    | `/products`      | Get all products    |
-| GET    | `/products/{id}` | Get a product by ID |
-| POST   | `/products`      | Create a new product|
-| PUT    | `/products/{id}` | Update product by ID|
-| DELETE | `/products/{id}` | Delete product by ID|
+| Method | Endpoint         | Description           |
+|--------|------------------|-----------------------|
+| GET    | `/products`      | Get all products      |
+| GET    | `/products/{id}` | Get a product by ID   |
+| POST   | `/products`      | Create a new product  |
+| PUT    | `/products/{id}` | Update product by ID  |
+| DELETE | `/products/{id}` | Delete product by ID  |
 
-#### 📥 Sample Request Body for `POST /products`:
+#### 📥 Sample Request Body for `POST /products`
+
 ```json
 {
   "name": "Bread",
   "price_per_unit": 45,
   "unit": "kg"
 }
-
-# (replace with your actual DB credentials)
-DATABASE_URL="mysql+pymysql://username:password@localhost:3306/grocery_db"
-
+```
 
 ### 🧾 Order Endpoints
 
-| Method | Endpoint       | Description        |
-|--------|----------------|--------------------|
-| GET    | `/orders`      | Get all orders     |
-| GET    | `/orders/{id}` | Get an order by ID |
-| POST   | `/orders`      | Create a new order |
-| PUT    | `/orders/{id}` | Update order by ID |
-| DELETE | `/orders/{id}` | Delete order by ID |
+| Method | Endpoint         | Description          |
+|--------|------------------|----------------------|
+| GET    | `/orders`        | Get all orders       |
+| GET    | `/orders/{id}`   | Get an order by ID   |
+| POST   | `/orders`        | Create a new order   |
+| PUT    | `/orders/{id}`   | Update order by ID   |
+| DELETE | `/orders/{id}`   | Delete order by ID   |
 
-#### 📥 Sample Request Body for `POST /orders`:
+#### 📥 Sample Request Body for `POST /orders`
+
 ```json
 {
   "customer_name": "John Doe",
@@ -120,33 +121,41 @@ DATABASE_URL="mysql+pymysql://username:password@localhost:3306/grocery_db"
     }
   ]
 }
+```
+
+---
 
 ## 🔧 Services
 
-| File                             | Description                                              |
-|----------------------------------|----------------------------------------------------------|
-| `services/product_service.py`    | 📦 Handles all product operations: create, read, update, delete. |
-| `services/order_service.py`      | 🧾 Processes order creation, total calculation, and order updates. |
+| File                          | Description                                                      |
+|-------------------------------|------------------------------------------------------------------|
+| `services/product_service.py` | 📦 Handles all product operations: create, read, update, delete. |
+| `services/order_service.py`   | 🧾 Processes order creation, total calculation, and order updates.|
 
 ---
 
 ## 🛠️ Utilities
 
-| File                           | Description                                                                            |
-|--------------------------------|----------------------------------------------------------------------------------------|
-| `utils/exceptions.py`         | ❗ Used for raising structured HTTP errors like 404 (Not Found), 400 (Bad Request), etc.|
+| File                     | Description                                                                      |
+|--------------------------|----------------------------------------------------------------------------------|
+| `utils/exceptions.py`   | ❗ Used for raising structured HTTP errors like 404 (Not Found), 400 (Bad Request), etc. |
 
-### 🔍 Example:
+### 🔍 Example
+
 ```python
 def raise_not_found(message):
     raise HTTPException(status_code=404, detail=message)
+```
+
+---
+
 ## 🗃️ Models
 
-| Model       | Description                                                |
-|-------------|------------------------------------------------------------|
-| 🛒 `Product`     | Represents a grocery product with attributes like `name`, `price_per_unit`, and `unit`. |
-| 📦 `Order`       | Represents a customer order, including the customer's name. |
-| 📄 `OrderItem`   | Represents an item in an order, linking a product with a `quantity`. |
+| Model         | Description                                                                 |
+|---------------|-----------------------------------------------------------------------------|
+| 🛒 `Product`   | Represents a grocery product with attributes like `name`, `price_per_unit`, and `unit`. |
+| 📦 `Order`     | Represents a customer order, including the customer's name.                |
+| 📄 `OrderItem` | Represents an item in an order, linking a product with a `quantity`.       |
 
 ---
 
@@ -160,5 +169,5 @@ This includes setting up the connection engine and creating tables using SQLAlch
 
 ```python
 Base.metadata.create_all(bind=engine)
-
+```
 
