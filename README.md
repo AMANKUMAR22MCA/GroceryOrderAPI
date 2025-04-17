@@ -129,8 +129,8 @@ Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
 | File                          | Description                                                      |
 |-------------------------------|------------------------------------------------------------------|
-| `services/product_service.py` | 📦 Handles all product operations: create, read, update, delete. |
-| `services/order_service.py`   | 🧾 Processes order creation, total calculation, and order updates.|
+| `services/product_service.py` | 📦 Handles all product operations: create, read . |
+| `services/order_service.py`   | 🧾 Processes order creation, total calculation, list all orders.|
 
 ---
 
