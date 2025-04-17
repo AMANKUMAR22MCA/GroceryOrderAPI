@@ -122,6 +122,7 @@ Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
   ]
 }
 ```
+![image](https://github.com/user-attachments/assets/cbe5684b-d337-40f5-81a2-b0d595c90665)
 
 ---
 
