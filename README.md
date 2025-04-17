@@ -1,4 +1,4 @@
-# 🛒 Grocery Ordering System API
+ # 🛒 Grocery Ordering System API
 
 ## 🚀 Project Overview
 This project is a **Grocery Ordering System** built with **FastAPI** and **SQLAlchemy**. It allows customers to browse and place grocery orders with full support for products, orders, and order items.
