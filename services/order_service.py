@@ -66,3 +66,87 @@ def get_all_orders(db: Session):
             total_amount=total
         ))
     return results
+
+def get_order_by_id(db: Session, order_id: int):
+    order = db.query(Order).filter(Order.id == order_id).first()
+    if not order:
+        raise_not_found(f"Order with ID {order_id} not found.")
+
+    items = db.query(OrderItem).filter(OrderItem.order_id == order.id).all()
+
+    total = 0
+    order_items = []
+    for item in items:
+        product = db.query(Product).filter(Product.id == item.product_id).first()
+        item_total = item.quantity * product.price_per_unit
+        total += item_total
+
+        order_items.append({
+            "product_id": item.product_id,
+            "product_name": product.name,
+            "price": product.price_per_unit,
+            "quantity": item.quantity
+        })
+
+    return {
+        "order_id": order.id,
+        "customer_name": order.customer_name,
+        "items": order_items,
+        "total_amount": total
+    }
+
+def update_order(db: Session, order_id: int, new_data: OrderCreate):
+    order = db.query(Order).filter(Order.id == order_id).first()
+    if not order:
+        raise_not_found(f"Order with ID {order_id} not found.")
+
+    # Update customer name
+    order.customer_name = new_data.customer_name
+
+    # Delete old items
+    db.query(OrderItem).filter(OrderItem.order_id == order_id).delete()
+
+    # Add new items
+    for item in new_data.items:
+        db_item = OrderItem(
+            order_id=order.id,
+            product_id=item.product_id,
+            quantity=item.quantity
+        )
+        db.add(db_item)
+
+    db.commit()
+    db.refresh(order)
+
+    # Rebuild response (matching OrderResponse schema)
+    items = db.query(OrderItem).filter(OrderItem.order_id == order.id).all()
+    order_items = []
+    total = 0
+
+    for item in items:
+        product = db.query(Product).filter(Product.id == item.product_id).first()
+        item_total = item.quantity * product.price_per_unit
+        total += item_total
+
+        order_items.append({
+            "product_id": item.product_id,
+            "product_name": product.name,
+            "price": product.price_per_unit,
+            "quantity": item.quantity
+        })
+
+    return {
+        "order_id": order.id,
+        "customer_name": order.customer_name,
+        "items": order_items,
+        "total_amount": total
+    }
+
+def delete_order(db: Session, order_id: int):
+    order = db.query(Order).filter(Order.id == order_id).first()
+    if not order:
+        raise_not_found(f"Order with ID {order_id} not found.")
+
+    db.query(OrderItem).filter(OrderItem.order_id == order_id).delete()
+    db.delete(order)
+    db.commit()
